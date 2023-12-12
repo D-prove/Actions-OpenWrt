@@ -80,6 +80,7 @@ jobs:
         cd openwrt
         git clone -b main https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall
         git clone -b main https://github.com/xiaorouji/openwrt-passwall.git package/passwall/p
+        git clone -b main https://github.com/xiaorouji/openwrt-passwall2.git package/passwall/p2
         git clone -b dev https://github.com/douglarek/luci-app-homeproxy.git package/passwall/luci-app-homeproxy
  
     - name: Add openclash
@@ -115,6 +116,7 @@ jobs:
        cd openwrt 
        git apply $GITHUB_WORKSPACE/patches/nftables_passwall.patch
        git apply $GITHUB_WORKSPACE/patches/nftables_openclash.patch
+       git apply $GITHUB_WORKSPACE/patches/nftables_passwall2.patch
 
     - name: Add app vlmcsd
       id: appvlmcsd
