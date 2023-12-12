@@ -122,13 +122,6 @@ jobs:
        echo "luci-app-passwall2" >> .git/info/sparse-checkout
        git pull --depth 1 origin main
 
-    - name: apply patches
-      run: |
-       cd openwrt 
-       git apply $GITHUB_WORKSPACE/patches/nftables_passwall.patch
-       git apply $GITHUB_WORKSPACE/patches/nftables_openclash.patch
-       git apply $GITHUB_WORKSPACE/patches/nftables_passwall2.patch
-
     - name: Add app vlmcsd
       id: appvlmcsd
       run: |
@@ -168,6 +161,13 @@ jobs:
        rsync -a feeds/luci/applications/passwall2/luci-app-passwall2/* feeds/luci/applications/luci-app-passwall2
        rm -rf feeds/luci/applications/passwall2
        ln -sf ../../../feeds/luci/applications/luci-app-passwall2 package/feeds/luci/luci-app-passwall2
+
+    - name: apply patches
+      run: |
+       cd openwrt 
+       git apply $GITHUB_WORKSPACE/patches/nftables_passwall.patch
+       git apply $GITHUB_WORKSPACE/patches/nftables_openclash.patch
+       git apply $GITHUB_WORKSPACE/patches/nftables_passwall2.patch
 
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
