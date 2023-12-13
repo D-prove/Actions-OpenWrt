@@ -169,7 +169,7 @@ jobs:
        echo "applications/luci-app-accesscontrol" >> .git/info/sparse-checkout
        git pull --depth 1 origin master
 
-    - name: Soft connection vlmcsd
+    - name: Soft connection
       id: soft
       run: |
        cd openwrt
@@ -325,7 +325,7 @@ jobs:
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
         repo: ${{ github.repository }}  
-        keep_latest: 8
+        keep_latest: 4
         delete_tags: true
       env:
         GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
