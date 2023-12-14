@@ -80,7 +80,13 @@ jobs:
         cd openwrt
         git clone -b main https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall
         git clone -b main https://github.com/xiaorouji/openwrt-passwall.git package/passwall/p
-        
+        rm -rf package/passwall/microsocks
+        rm -rf package/passwall/sing-box
+        rm -rf package/passwall/trojan-go
+        rm -rf package/passwall/v2ray-core
+        rm -rf package/passwall/v2ray-geodata
+        rm -rf package/passwall/xray-core
+ 
     - name: Add openclash
       id: openclash
       run: |
