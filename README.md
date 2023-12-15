@@ -1,10 +1,5 @@
 
-![Crontab logo](Screenshot_20231215_051235.jpg)
-**Crontab 表达式规则：**
-**注：Linux中没有second，最小是miniute。**
-
-例：30 21 * * *
-表示每晚21:30分执行
+![Crontab logo](Crontab.jpg)
 
 **在线crontab** https://tooltt.com/crontab/c/86.html
 
