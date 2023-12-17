@@ -14,7 +14,7 @@ on:
  # repository_dispatch:
   workflow_dispatch:
   schedule:
-    - cron: 0 21 * * 6
+    - cron: 0 21 * * 1-6/2
   repository_dispatch:
     inputs:
       ssh:
