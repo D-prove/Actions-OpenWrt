@@ -156,18 +156,6 @@ jobs:
        echo "net/vlmcsd" >> .git/info/sparse-checkout
        git pull --depth 1 origin openwrt-23.05
 
-    - name: Add accesscontrol
-      id: accesscontrol
-      run: |
-       cd openwrt
-       mkdir -p feeds/luci/applications/accesscontrol
-       cd feeds/luci/applications/accesscontrol
-       git init
-       git remote add origin https://github.com/immortalwrt/luci.git
-       git config core.sparsecheckout true
-       echo "applications/luci-app-accesscontrol" >> .git/info/sparse-checkout
-       git pull --depth 1 origin master
-
     - name: Soft connection
       id: soft
       run: |
@@ -180,9 +168,6 @@ jobs:
        mv package/vlmcsd/net/vlmcsd/* package/vlmcsd
        rm -rf package/vlmcsd/net
        rm -rf package/vlmcsd/.git
-       rsync -a feeds/luci/applications/accesscontrol/applications/luci-app-accesscontrol/* feeds/luci/applications/luci-app-accesscontrol
-       rm -rf feeds/luci/applications/accesscontrol
-       ln -sf ../../../feeds/luci/applications/luci-app-accesscontrol package/feeds/luci/luci-app-accesscontrol
 
     - name: apply patches
       id: patches
