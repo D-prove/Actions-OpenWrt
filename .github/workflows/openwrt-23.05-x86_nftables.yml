@@ -151,6 +151,18 @@ jobs:
        echo "net/vlmcsd" >> .git/info/sparse-checkout
        git pull --depth 1 origin openwrt-23.05
 
+    - name: r8152
+      id: r8152
+      run: |
+       cd openwrt
+       mkdir -p package/kernel/r8152
+       cd package/kernel/r8152
+       git init
+       git remote add origin https://github.com/immortalwrt/immortalwrt.git
+       git config core.sparsecheckout true
+       echo "package/kernel/r8152" >> .git/info/sparse-checkout
+       git pull --depth 1 origin master
+
     - name: Soft connection
       id: soft
       run: |
@@ -166,6 +178,9 @@ jobs:
        rsync -a feeds/luci/applications/passwall2/luci-app-passwall2/* feeds/luci/applications/luci-app-passwall2
        rm -rf feeds/luci/applications/passwall2
        ln -sf ../../../feeds/luci/applications/luci-app-passwall2 package/feeds/luci/luci-app-passwall2
+       rsync -a package/kernel/r8152/package/kernel/r8152/* package/kernel/r8152
+       rm -rf package/kernel/r8152/package
+       rm -rf package/kernel/r8152/.git
 
     - name: apply patches
       run: |
