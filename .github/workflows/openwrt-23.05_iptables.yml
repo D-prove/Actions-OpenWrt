@@ -13,8 +13,8 @@ name: openwrt-23.05-iptables
 on:
  # repository_dispatch:
   workflow_dispatch:
-  schedule:
-    - cron: 0 21 * * 1-6/2
+#  schedule:
+#    - cron: 0 21 * * 1-6/2
   repository_dispatch:
     inputs:
       ssh:
