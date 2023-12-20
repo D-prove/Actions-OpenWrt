@@ -80,11 +80,6 @@ jobs:
         cd openwrt
         git clone -b main https://github.com/fw876/helloworld package/helloworld
         rm -rf package/helloworld/mosdns
-        rm -rf package/helloworld/microsocks
-        rm -rf package/helloworld/v2ray-core
-        rm -rf package/helloworld/v2ray-geodata
-        rm -rf package/helloworld/xray-core
-        rm -rf package/helloworld/v2raya
         git clone -b main https://github.com/xiaorouji/openwrt-passwall2.git package/passwall/p2
         git clone -b main https://github.com/xiaorouji/openwrt-passwall.git package/passwall/p
 
@@ -99,7 +94,9 @@ jobs:
        git config core.sparsecheckout true
        echo "brook" >> .git/info/sparse-checkout
        echo "pdnsd-alt" >> .git/info/sparse-checkout
+       echo "sing-box" >> .git/info/sparse-checkout
        echo "ssocks" >> .git/info/sparse-checkout
+       echo "trojan-go" >> .git/info/sparse-checkout
        echo "trojan-plus" >> .git/info/sparse-checkout
        git pull --depth 1 origin main
        git branch --set-upstream-to=origin/main master
@@ -219,6 +216,24 @@ jobs:
       env:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+
+    - name: Merge duplicates
+      run: |
+        cd openwrt
+        sudo rm -rf feeds/packages/net/microsocks
+        sudo rm -rf package/feeds/packages/microsocks
+        sudo rm -rf feeds/packages/net/sing-box
+        sudo rm -rf package/feeds/packages/sing-box 
+        sudo rm -rf feeds/packages/net/trojan-go
+        sudo rm -rf package/feeds/packages/trojan-go
+        sudo rm -rf feeds/packages/net/v2ray-core
+        sudo rm -rf package/feeds/packages/v2ray-core
+        sudo rm -rf feeds/packages/net/v2ray-geodata
+        sudo rm -rf package/feeds/packages/v2ray-geodata
+        sudo rm -rf feeds/packages/net/xray-core
+        sudo rm -rf package/feeds/packages/xray-core
+        sudo rm -rf feeds/packages/net/v2raya
+        sudo rm -rf package/feeds/packages/v2raya
 
     - name: Download package
       id: package
