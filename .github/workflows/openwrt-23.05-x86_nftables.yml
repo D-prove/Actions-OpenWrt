@@ -74,18 +74,12 @@ jobs:
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
 
-    - name: delete package
-      id: delete
+    - name: Add passwall
+      id: passwall
       run: |
         cd openwrt
         git clone -b main https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall
         git clone -b main https://github.com/xiaorouji/openwrt-passwall.git package/passwall/p
-        rm -rf package/passwall/microsocks
-        rm -rf package/passwall/sing-box
-        rm -rf package/passwall/trojan-go
-        rm -rf package/passwall/v2ray-core
-        rm -rf package/passwall/v2ray-geodata
-        rm -rf package/passwall/xray-core
  
     - name: Add openclash
       id: openclash
@@ -201,6 +195,22 @@ jobs:
       #  git apply $GITHUB_WORKSPACE/patches/Revertgolang1.patch
       #  git apply $GITHUB_WORKSPACE/patches/Revertgolang2.patch
     #  run: cd openwrt && git apply $GITHUB_WORKSPACE/patches/golang1.21.4.patch
+
+    - name: Merge duplicates
+      run: |
+        cd openwrt
+        sudo rm -rf feeds/packages/net/microsocks
+        sudo rm -rf package/feeds/packages/microsocks
+        sudo rm -rf feeds/packages/net/sing-box
+        sudo rm -rf package/feeds/packages/sing-box 
+        sudo rm -rf feeds/packages/net/trojan-go
+        sudo rm -rf package/feeds/packages/trojan-go
+        sudo rm -rf feeds/packages/net/v2ray-core
+        sudo rm -rf package/feeds/packages/v2ray-core
+        sudo rm -rf feeds/packages/net/v2ray-geodata
+        sudo rm -rf package/feeds/packages/v2ray-geodata
+        sudo rm -rf feeds/packages/net/xray-core
+        sudo rm -rf package/feeds/packages/xray-core
 
     - name: Load custom configuration
       run: |
