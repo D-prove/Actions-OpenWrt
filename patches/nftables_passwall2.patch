@@ -1,38 +1,29 @@
-From e002eb08315d372842577a57b3bc6a7c80e0b21d Mon Sep 17 00:00:00 2001
+From 887b42870fc885163ed7ed80b01dd0c5dac87ae1 Mon Sep 17 00:00:00 2001
 From: sdhz151 <yanghui140@gmail.com>
-Date: Tue, 12 Dec 2023 16:07:49 +0800
+Date: Wed, 20 Dec 2023 14:49:29 +0800
 Subject: [PATCH] Update Makefile
 
 ---
- feeds/luci/applications/luci-app-passwall2/Makefile | 37 ++++---------------------------------
- 1 file changed, 4 insertions(+), 33 deletions(-)
+ feeds/luci/applications/luci-app-passwall2/Makefile | 25 ++++---------------------
+ 1 file changed, 4 insertions(+), 21 deletions(-)
 
 diff --git a/feeds/luci/applications/luci-app-passwall2/Makefile b/feeds/luci/applications/luci-app-passwall2/Makefile
-index 79b60735..b0e99800 100644
+index 79b60735..0068fde2 100644
 --- a/feeds/luci/applications/luci-app-passwall2/Makefile
 +++ b/feeds/luci/applications/luci-app-passwall2/Makefile
-@@ -9,8 +9,6 @@ PKG_VERSION:=1.21-4
+@@ -9,7 +9,6 @@ PKG_VERSION:=1.21-4
  PKG_RELEASE:=
  
  PKG_CONFIG_DEPENDS:= \
 -	CONFIG_PACKAGE_$(PKG_NAME)_Iptables_Transparent_Proxy \
--	CONFIG_PACKAGE_$(PKG_NAME)_Nftables_Transparent_Proxy \
+ 	CONFIG_PACKAGE_$(PKG_NAME)_Nftables_Transparent_Proxy \
  	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Brook \
  	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Haproxy \
- 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Hysteria \
-@@ -32,7 +30,7 @@ LUCI_PKGARCH:=all
- LUCI_DEPENDS:=+coreutils +coreutils-base64 +coreutils-nohup +curl \
- 	+ip-full +libuci-lua +lua +luci-compat +luci-lib-jsonc +resolveip +tcping \
- 	+xray-core +v2ray-geoip +v2ray-geosite \
--	+unzip \
-+	+kmod-nft-nat +kmod-nft-tproxy +kmod-nft-socket +unzip \
- 	+PACKAGE_$(PKG_NAME)_INCLUDE_Brook:brook \
- 	+PACKAGE_$(PKG_NAME)_INCLUDE_Haproxy:haproxy \
- 	+PACKAGE_$(PKG_NAME)_INCLUDE_Hysteria:hysteria \
-@@ -54,33 +52,6 @@ LUCI_DEPENDS:=+coreutils +coreutils-base64 +coreutils-nohup +curl \
+@@ -53,22 +52,6 @@ LUCI_DEPENDS:=+coreutils +coreutils-base64 +coreutils-nohup +curl \
+ 
  define Package/$(PKG_NAME)/config
  menu "Configuration"
- 
+-
 -config PACKAGE_$(PKG_NAME)_Iptables_Transparent_Proxy
 -	bool "Iptables Transparent Proxy"
 -	select PACKAGE_dnsmasq-full
@@ -48,22 +39,10 @@ index 79b60735..b0e99800 100644
 -	select PACKAGE_kmod-ipt-nat
 -	depends on PACKAGE_$(PKG_NAME)
 -	default y if ! PACKAGE_firewall4
--	
--config PACKAGE_$(PKG_NAME)_Nftables_Transparent_Proxy
--	bool "Nftables Transparent Proxy"
--	select PACKAGE_dnsmasq-full
--	select PACKAGE_dnsmasq_full_nftset
--	select PACKAGE_nftables
--	select PACKAGE_kmod-nft-socket
--	select PACKAGE_kmod-nft-tproxy
--	select PACKAGE_kmod-nft-nat
--	depends on PACKAGE_$(PKG_NAME)
--	default y if PACKAGE_firewall4
--
- config PACKAGE_$(PKG_NAME)_INCLUDE_Brook
- 	bool "Include Brook"
- 	default n
-@@ -91,17 +62,17 @@ config PACKAGE_$(PKG_NAME)_INCLUDE_Haproxy
+ 	
+ config PACKAGE_$(PKG_NAME)_Nftables_Transparent_Proxy
+ 	bool "Nftables Transparent Proxy"
+@@ -91,17 +74,17 @@ config PACKAGE_$(PKG_NAME)_INCLUDE_Haproxy
  
  config PACKAGE_$(PKG_NAME)_INCLUDE_Hysteria
  	bool "Include Hysteria"

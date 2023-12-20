@@ -1,34 +1,25 @@
-From 6903982b62debcb51a988b9993cb4e2951a69204 Mon Sep 17 00:00:00 2001
-From: "luci-app-passwall: fix tproxy dependencies" <cnsztl@immortalwrt.org>
-Date: Thu, 7 Dec 2023 12:26:04 +0800
-Subject: [PATCH] luci-app-passwall: fix tproxy dependencies
+From 3e7dafe42f53a8e655f8ecda4fc598e5670b581b Mon Sep 17 00:00:00 2001
+From: sdhz151 <yanghui140@gmail.com>
+Date: Wed, 20 Dec 2023 18:13:13 +0800
+Subject: [PATCH] Update Makefile
 
 ---
- package/passwall/p/luci-app-passwall/Makefile | 29 +----------------------------
- 1 file changed, 1 insertion(+), 28 deletions(-)
+ package/passwall/p/luci-app-passwall/Makefile | 24 ++++--------------------
+ 1 file changed, 4 insertions(+), 20 deletions(-)
 
 diff --git a/package/passwall/p/luci-app-passwall/Makefile b/package/passwall/p/luci-app-passwall/Makefile
-index ffee7c6c72..e5385abcd7 100644
+index ffee7c6c72..229ba7c249 100644
 --- a/package/passwall/p/luci-app-passwall/Makefile
 +++ b/package/passwall/p/luci-app-passwall/Makefile
-@@ -10,8 +10,6 @@ PKG_VERSION:=4.71-3
+@@ -10,7 +10,6 @@ PKG_VERSION:=4.71-3
  PKG_RELEASE:=
  
  PKG_CONFIG_DEPENDS:= \
 -	CONFIG_PACKAGE_$(PKG_NAME)_Iptables_Transparent_Proxy \
--	CONFIG_PACKAGE_$(PKG_NAME)_Nftables_Transparent_Proxy \
+ 	CONFIG_PACKAGE_$(PKG_NAME)_Nftables_Transparent_Proxy \
  	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Brook \
  	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Haproxy \
- 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Hysteria \
-@@ -37,6 +35,7 @@ LUCI_PKGARCH:=all
- LUCI_DEPENDS:=+coreutils +coreutils-base64 +coreutils-nohup +curl \
- 	+chinadns-ng +dns2socks +dns2tcp +ip-full +libuci-lua +lua +luci-compat +luci-lib-jsonc \
- 	+microsocks +resolveip +tcping +unzip \
-+    +kmod-nft-socket +kmod-nft-tproxy +kmod-nft-nat \
- 	+PACKAGE_$(PKG_NAME)_INCLUDE_Brook:brook \
- 	+PACKAGE_$(PKG_NAME)_INCLUDE_Haproxy:haproxy \
- 	+PACKAGE_$(PKG_NAME)_INCLUDE_Hysteria:hysteria \
-@@ -63,32 +62,6 @@ LUCI_DEPENDS:=+coreutils +coreutils-base64 +coreutils-nohup +curl \
+@@ -63,21 +62,6 @@ LUCI_DEPENDS:=+coreutils +coreutils-base64 +coreutils-nohup +curl \
  define Package/$(PKG_NAME)/config
  menu "Configuration"
  
@@ -47,17 +38,39 @@ index ffee7c6c72..e5385abcd7 100644
 -	depends on PACKAGE_$(PKG_NAME)
 -	default y if ! PACKAGE_firewall4
 -
--config PACKAGE_$(PKG_NAME)_Nftables_Transparent_Proxy
--	bool "Nftables Transparent Proxy"
--	select PACKAGE_dnsmasq-full
--	select PACKAGE_ipt2socks
--	select PACKAGE_nftables
--	select PACKAGE_kmod-nft-socket
--	select PACKAGE_kmod-nft-tproxy
--	select PACKAGE_kmod-nft-nat
--	depends on PACKAGE_$(PKG_NAME)
--	default y if PACKAGE_firewall4
--
- config PACKAGE_$(PKG_NAME)_INCLUDE_Brook
- 	bool "Include Brook"
- 	default n
+ config PACKAGE_$(PKG_NAME)_Nftables_Transparent_Proxy
+ 	bool "Nftables Transparent Proxy"
+ 	select PACKAGE_dnsmasq-full
+@@ -99,12 +83,12 @@ config PACKAGE_$(PKG_NAME)_INCLUDE_Haproxy
+ 
+ config PACKAGE_$(PKG_NAME)_INCLUDE_Hysteria
+ 	bool "Include Hysteria"
+-	default n
++	default y
+ 
+ config PACKAGE_$(PKG_NAME)_INCLUDE_NaiveProxy
+ 	bool "Include NaiveProxy"
+ 	depends on !(arc||(arm&&TARGET_gemini)||armeb||mips||mips64||powerpc)
+-	default n
++	default y
+ 
+ config PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Libev_Client
+ 	bool "Include Shadowsocks Libev Client"
+@@ -142,7 +126,7 @@ config PACKAGE_$(PKG_NAME)_INCLUDE_SingBox
+ 
+ config PACKAGE_$(PKG_NAME)_INCLUDE_Trojan_GO
+ 	bool "Include Trojan-GO"
+-	default n
++	default y
+ 
+ config PACKAGE_$(PKG_NAME)_INCLUDE_Trojan_Plus
+ 	bool "Include Trojan-Plus"
+@@ -155,7 +139,7 @@ config PACKAGE_$(PKG_NAME)_INCLUDE_tuic_client
+ 
+ config PACKAGE_$(PKG_NAME)_INCLUDE_V2ray_Geodata
+ 	bool "Include V2ray_Geodata"
+-	default n
++	default y
+ 
+ config PACKAGE_$(PKG_NAME)_INCLUDE_V2ray_Plugin
+ 	bool "Include V2ray-Plugin (Shadowsocks Plugin)"
